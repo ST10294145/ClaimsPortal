@@ -7,7 +7,9 @@ var connectionString = builder.Configuration.GetConnectionString("ContextConnect
 
 builder.Services.AddDbContext<Context>(options => options.UseSqlServer(connectionString));
 
-builder.Services.AddDefaultIdentity<ClaimsPortalUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<Context>();
+builder.Services.AddDefaultIdentity<ClaimsPortalUser>().AddDefaultTokenProviders()
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<Context>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
